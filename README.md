@@ -13,6 +13,18 @@
 
 ## 安装与使用
 
+将下面这句话直接发给 Codex：
+
+```text
+使用 skill-installer 安装 https://github.com/onlychuan/scroll-product-wipe 根目录的 skill。
+```
+
+也可手动安装：
+
+```bash
+git clone https://github.com/onlychuan/scroll-product-wipe.git ~/.codex/skills/scroll-product-wipe
+```
+
 将本仓库下载或克隆到 Codex 的 `~/.codex/skills/scroll-product-wipe` 目录，确保 `SKILL.md` 位于该目录根部。
 
 示例请求：
