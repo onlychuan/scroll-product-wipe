@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>产品状态展示</title>
+<style>
+  *{box-sizing:border-box}body{margin:0;background:#f1cf87}
+  .journey{position:relative;height:500vh;height:500svh}
+  .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;isolation:isolate}
+  .scene{position:absolute;inset:0;overflow:hidden;clip-path:inset(100% 0 0);background:var(--bg)}
+  .scene:first-child{clip-path:inset(0)}
+  .product{position:absolute;left:50%;top:50%;width:min(94vw,140svh,1340px);height:auto;aspect-ratio:1672/941;object-fit:contain;transform:translate(-50%,-50%);user-select:none;pointer-events:none}
+  @media(max-width:720px){.product{width:112vw}}
+</style>
+<main class="journey"><div class="stage" aria-label="滚动查看产品不同状态"></div></main>
+<script>
+// 将四张等画布、等锚点图片放在同级 images 目录，或替换以下路径。
+// 状态数量可变；修改素材比例时同步修改 product 的 aspect-ratio。
+const states = [
+  {src:'images/state-1.png',bg:'#f1cf87',alt:'完整产品'},
+  {src:'images/state-2.png',bg:'#b9dbce',alt:'去掉面板'},
+  {src:'images/state-3.png',bg:'#c9c3de',alt:'内部组件'},
+  {src:'images/state-4.png',bg:'#e9b699',alt:'电路板显露'}
+];
+const journey=document.querySelector('.journey'),stage=document.querySelector('.stage');
+const scenes=states.map((state,i)=>{
+  const layer=document.createElement('section');layer.className='scene';layer.style.setProperty('--bg',state.bg);
+  const img=new Image();img.className='product';img.src=state.src;img.alt=state.alt;img.draggable=false;
+  if(i===0)img.fetchPriority='high';
+  img.addEventListener('error',()=>console.error('图片无法加载',state.src));
+  layer.append(img);stage.append(layer);return layer;
+});
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+let pending=false;
+function render(){
+  pending=false;
+  const h=stage.clientHeight;if(!h||!scenes.length)return;
+  journey.style.height=`${(scenes.length+1)*h}px`;
+  const q=clamp(-journey.getBoundingClientRect().top/h,0,scenes.length);
+  scenes.forEach((layer,i)=>layer.style.clipPath=`inset(${i===0?0:clamp((i-q)*100,0,100)}% 0 0 0)`);
+}
+function queue(){if(!pending){pending=true;requestAnimationFrame(render)}}
+addEventListener('scroll',queue,{passive:true});addEventListener('resize',queue);addEventListener('pageshow',queue);render();
+</script>
+</html>

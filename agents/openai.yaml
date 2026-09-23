@@ -1,0 +1,4 @@
+interface:
+  display_name: "产品原位滚动擦换"
+  short_description: "使用用户图片制作产品原位滚动擦换网页，并提供八种素材承接提示"
+  default_prompt: "使用 $scroll-product-wipe，基于我提供的产品图片制作原位对齐、从下向上边界擦换的滚动页面；缺图时给我素材准备提示，由我自行生成图片。"

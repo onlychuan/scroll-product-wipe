@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1cf87">
+  <title>MiaoLai · 层层看见</title>
+  <link rel="preload" href="assets/state-1.png" as="image">
+  <style>
+    :root{font-family:Arial,"Microsoft YaHei","PingFang SC",sans-serif;color:#273b37;background:#f1cf87;font-synthesis:none}
+    *{box-sizing:border-box}body{margin:0}button,a{-webkit-tap-highlight-color:transparent}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid currentColor;outline-offset:7px}
+    .masthead{position:fixed;inset:0 0 auto;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:30px 4.3vw;pointer-events:none;color:#fff;mix-blend-mode:difference}
+    .masthead a,.masthead button{pointer-events:auto}.wordmark{font-size:24px;font-weight:700;letter-spacing:-1px}.wordmark span{font-size:9px;letter-spacing:2px;margin-left:17px;vertical-align:middle;font-weight:400}.top-links{display:flex;gap:30px;align-items:center;font-size:11px;letter-spacing:1px}.restart{background:none;border:0;color:inherit;padding:5px 0}
+    .journey{height:500vh;height:500svh;position:relative}.stage{position:sticky;top:0;width:100%;height:100vh;height:100svh;overflow:hidden;isolation:isolate}
+    .scene{position:absolute;inset:0;overflow:hidden;clip-path:inset(100% 0 0);background:var(--bg);color:var(--ink);will-change:clip-path}.scene:first-child{clip-path:inset(0)}
+    .scene:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 43%,#ffffff22,transparent 65%);pointer-events:none}
+    .scene-heading{position:absolute;left:15%;right:15%;top:9.5%;text-align:center;z-index:2}.overline{margin:0 0 12px;font:10px/1.5 Arial,sans-serif;letter-spacing:4px;text-transform:uppercase;opacity:.6}.scene-heading h1,.scene-heading h2{font-weight:500;letter-spacing:-2px;font-size:clamp(27px,3.6vw,52px);line-height:1.15;margin:0}.scene-heading em{font-style:normal;color:var(--accent)}
+    .product{position:absolute;left:50%;top:50%;width:min(94vw,140vh,1340px);width:min(94vw,140svh,1340px);height:auto;aspect-ratio:1672/941;object-fit:contain;transform:translate(calc(-50% + var(--shift-x,0%)),calc(-50% + var(--shift-y,0%)));pointer-events:none;user-select:none;z-index:1}
+    .architecture{position:absolute;width:min(80vw,1000px);height:59%;left:50%;top:50%;transform:translate(-50%,-50%);opacity:.12;pointer-events:none;color:var(--ink)}
+    .arch-lines{position:absolute;inset:7% 4%;border:1px solid currentColor;border-bottom:none;border-radius:180px 180px 0 0}.arch-lines:before,.arch-lines:after{content:"";position:absolute;top:0;bottom:0;width:1px;background:currentColor;left:25%}.arch-lines:after{left:75%}.baseline{position:absolute;left:-8%;right:-8%;bottom:0;border-top:1px solid currentColor}
+    .diagram .arch-lines{border-radius:0;inset:12% 6%;border-style:dashed;border-bottom:1px dashed currentColor}.diagram .arch-lines:before,.diagram .arch-lines:after{background:none;border-left:1px dashed currentColor}.orbit .arch-lines{inset:2% 15%;border-radius:50%;border-bottom:1px solid currentColor}.orbit .arch-lines:before{top:24%;bottom:24%;left:-22%;right:-22%;width:auto;border:1px solid currentColor;background:none;border-radius:50%}.orbit .arch-lines:after{display:none}
+    .caption{position:absolute;left:12%;right:12%;bottom:9.8%;text-align:center;z-index:3}.caption .chapter{font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.56;margin-bottom:11px}.caption p{font-size:14px;line-height:1.85;font-weight:400;margin:0;letter-spacing:.4px}.caption b{font-weight:600}.scene-number{position:absolute;left:4.5vw;bottom:5%;font-size:11px;letter-spacing:1px;opacity:.65}.scene-number span{opacity:.45;margin-left:8px}.scroll-cue{position:absolute;bottom:3.2%;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:2px;display:flex;gap:12px;align-items:center;opacity:.6}.scroll-cue i{display:block;width:6px;height:6px;border-right:1px solid;border-bottom:1px solid;transform:rotate(45deg);margin-top:-3px}
+    .rail{position:fixed;right:3.9vw;top:50%;transform:translateY(-50%);z-index:31;display:flex;flex-direction:column;gap:4px;mix-blend-mode:difference;color:#fff}.rail button{width:30px;height:34px;position:relative;border:0;background:none;color:inherit}.rail button:after{content:"";position:absolute;left:12px;top:14px;width:5px;height:5px;border:1px solid currentColor;border-radius:50%;opacity:.42;transition:transform .2s,opacity .2s}.rail button[aria-current="step"]:after{background:currentColor;opacity:1;transform:scale(1.65)}.rail button span{position:absolute;right:35px;top:12px;font-size:10px;letter-spacing:1px;white-space:nowrap;opacity:0;transition:opacity .2s}.rail button:hover span,.rail button:focus-visible span{opacity:1}
+    .scroll-progress{position:fixed;z-index:40;left:0;right:0;bottom:0;height:2px;background:#00000009;pointer-events:none}.scroll-progress i{display:block;height:100%;background:#e18456;transform-origin:left;transform:scaleX(0)}
+    .closing{background:#263c3a;color:#f5eee0;min-height:52vh;padding:11vh 8vw 7vh;text-align:center;position:relative;z-index:5}.closing .overline{color:#bbd3c2}.closing h2{font-size:clamp(28px,4vw,52px);font-weight:500;letter-spacing:-1px;margin:20px 0 22px}.closing p{font-size:13px;line-height:1.9;color:#bdc9c1;max-width:450px;margin:0 auto}.replay{display:inline-flex;gap:35px;align-items:center;border-bottom:1px solid #ffffff5c;padding:13px 0;margin-top:22px;color:inherit;background:none;border-top:0;border-left:0;border-right:0;font-size:12px}.footnote{margin-top:64px;display:flex;justify-content:space-between;font-size:9px;letter-spacing:1px;color:#a8bab0}.load-error{position:absolute;top:48%;left:10%;right:10%;text-align:center;padding:20px;z-index:10}.load-error[hidden]{display:none}
+    @media(max-width:720px){.masthead{padding:24px 6vw}.wordmark{font-size:21px}.wordmark span{display:none}.top-links{font-size:10px;gap:18px}.scene-heading{top:14%;left:7%;right:7%}.scene-heading em{display:block;margin-top:5px}.scene-heading h1,.scene-heading h2{font-size:31px;letter-spacing:-1px}.overline{font-size:8px;letter-spacing:3px}.product{width:112vw}.architecture{width:90vw;height:42%}.arch-lines{border-radius:100px 100px 0 0}.caption{bottom:17%;left:9%;right:9%}.caption p{font-size:12px;line-height:1.9}.caption .chapter{font-size:8px;letter-spacing:1.5px}.rail{right:2vw;gap:0}.rail button{height:29px;width:22px}.rail button:after{left:9px;top:11px;width:4px;height:4px}.rail button span{display:none}.scene-number{left:6vw;bottom:5%;font-size:9px}.scroll-cue{font-size:8px;bottom:5%}.closing{padding:10vh 7vw 5vh}.footnote{font-size:8px;gap:20px}.closing p{font-size:12px}}
+    @media(max-height:560px) and (min-width:721px){.masthead{padding-top:18px}.scene-heading{top:12%}.scene-heading h1,.scene-heading h2{font-size:28px}.overline{margin-bottom:6px}.caption{bottom:7%}.caption p{font-size:11px}.caption .chapter{margin-bottom:5px}.product{width:116vh}.scroll-cue{display:none}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <main id="top">
+    <div class="journey" id="journey"><div class="stage" id="stage" aria-label="滚动查看墙插的四个结构状态">
+      <section class="scene" style="--bg:#f1cf87;--ink:#4b4930;--accent:#b65a3b" aria-label="第一层：完整外观">
+        <div class="architecture"><div class="arch-lines"></div><div class="baseline"></div></div>
+        <img class="product" src="assets/state-1.png" width="1672" height="941" alt="完整的白色双插座墙插" fetchpriority="high" draggable="false">
+      </section>
+      <section class="scene" style="--bg:#b9dbce;--ink:#284d44;--accent:#42725e" aria-label="第二层：去掉面板">
+        <div class="architecture diagram"><div class="arch-lines"></div><div class="baseline"></div></div>
+        <img class="product" src="assets/state-2.png" width="1672" height="941" alt="去掉装饰面板，露出插孔接触组件" draggable="false">
+      </section>
+      <section class="scene" style="--bg:#c9c3de;--ink:#443c60;--accent:#74618f" aria-label="第三层：内部组件">
+        <div class="architecture"><div class="arch-lines"></div><div class="baseline"></div></div>
+        <img class="product" src="assets/state-3.png" width="1672" height="941" alt="露出金属支架、上下两组开关组件及后方电路板" draggable="false">
+      </section>
+      <section class="scene" style="--bg:#e9b699;--ink:#553e32;--accent:#955939" aria-label="第四层：电路板显露">
+        <div class="architecture orbit"><div class="arch-lines"></div><div class="baseline"></div></div>
+        <img class="product" src="assets/state-4.png" width="1672" height="941" alt="前方组件移除后露出的绿色电路板及金属接点" draggable="false">
+      </section>
+    </div></div>
+  </main>
+  <nav class="rail" aria-label="选择产品状态"><button type="button" data-scene="0" aria-label="完整外观" aria-current="step"></button><button type="button" data-scene="1" aria-label="去掉面板"></button><button type="button" data-scene="2" aria-label="内部组件"></button><button type="button" data-scene="3" aria-label="电路板"></button></nav>
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <script>
+  (() => {
+    const journey=document.querySelector('#journey'),stage=document.querySelector('#stage'),scenes=[...document.querySelectorAll('.scene')],buttons=[...document.querySelectorAll('[data-scene]')],progress=document.querySelector('.scroll-progress i');
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)');let scheduled=false,active=-1;
+    const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+    function render(){
+      const h=stage.clientHeight,rect=journey.getBoundingClientRect(),q=clamp(-rect.top/h,0,scenes.length);
+      scenes.forEach((scene,i)=>{const inset=i===0?0:clamp((i-q)*100,0,100);scene.style.clipPath=`inset(${inset.toFixed(4)}% 0 0 0)`;});
+      const selected=clamp(Math.floor(q+.5),0,scenes.length-1);
+      if(selected!==active){active=selected;buttons.forEach((button,i)=>{if(i===active)button.setAttribute('aria-current','step');else button.removeAttribute('aria-current');});}
+      progress.style.transform=`scaleX(${clamp(q/(scenes.length-1),0,1)})`;scheduled=false;
+    }
+    function queue(){if(!scheduled){scheduled=true;requestAnimationFrame(render);}}
+    function go(index){const top=journey.getBoundingClientRect().top+scrollY+index*stage.clientHeight;scrollTo({top,behavior:reduced.matches?'instant':'smooth'});}
+    buttons.forEach(button=>button.addEventListener('click',()=>go(Number(button.dataset.scene))));
+    document.querySelectorAll('.restart').forEach(button=>button.addEventListener('click',()=>go(0)));
+    document.querySelectorAll('.product').forEach(img=>img.addEventListener('error',()=>console.error('Product image could not be loaded:',img.src)));
+    addEventListener('scroll',queue,{passive:true});addEventListener('resize',queue);addEventListener('pageshow',queue);render();
+  })();
+  </script>
+</body>
+</html>
